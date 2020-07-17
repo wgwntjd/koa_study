@@ -127,7 +127,7 @@ exports.replace = async (ctx) => {
 exports.update = async (ctx) => {
     const { id } = ctx.params;
 
-    if (!isValidObjectId.isvalid(id)) {
+    if (!ObjectId.isValid(id)) {
         ctx.status = 400;
         return;
     }
@@ -135,7 +135,7 @@ exports.update = async (ctx) => {
     let book;
 
     try {
-        book = await Book.findByIdAndUpdate(id, ctx.reques.body, {
+        book = await Book.findByIdAndUpdate(id, ctx.request.body, {
             new: true
         });
     } catch (e) {
