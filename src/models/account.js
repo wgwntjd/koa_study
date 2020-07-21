@@ -66,7 +66,7 @@ Account.statics.localRegister = function ({ username, email, password }) {
 }
 
 Account.methods.validatePassword = function (password) {
-    const hased = hash(pashword);
+    const hashed = hash(password);
     return this.password === hashed;
 }
 

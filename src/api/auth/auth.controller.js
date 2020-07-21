@@ -72,7 +72,18 @@ exports.localLogin = async (ctx) => {
 };
 
 exports.exists = async (ctx) => {
-    ctx.body = 'exists';
+    const { key, value } = ctx.params;
+    let account = null;
+
+    try {
+        account = await (key === 'email' ? Account.findByEmail(value) : Account.findByUsername(value));
+    } catch (e) {
+        ctx.thorw(500, e);
+    }
+
+    ctx.body = {
+        exists: account !== null
+    };
 };
 
 exports.logout = async (ctx) => {
