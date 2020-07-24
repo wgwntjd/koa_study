@@ -27,6 +27,14 @@ app.use(bodyParser()); // 바디파서 적용, 라우터 적용코드보다 상�
 router.use('/api', api.routes()); // api 라우트를 /api 경로 하위 라우트로 설정
 app.use(router.routes()).use(router.allowedMethods());
 
+const jwt = require('jsonwebtoken');
+const token = jwt.sign({ foo: 'bar' }, 'secret-key', { expiresIn: '7d' }, (err, token) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    console.log(token);
+});
 
 app.listen(port, () => {
     console.log('Jusung server is listening to http://localhost:' + port);

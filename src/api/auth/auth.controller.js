@@ -38,6 +38,14 @@ exports.localRegister = async (ctx) => {
         ctx.throw(500, e);
     }
 
+    let token = null;
+    try {
+        token = await Account.generateToken();
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+
+    ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
     ctx.body = account.profile;
 };
 
